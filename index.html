@@ -13,12 +13,25 @@
     </div>
 
     <script>
+        // Убедимся, что WebApp SDK готов к использованию
         window.Telegram.WebApp.ready();
 
+        // Получаем данные пользователя
         const user = Telegram.WebApp.initDataUnsafe.user;
+
+        // Добавляем отладочный вывод для проверки данных
+        console.log(user);  // Выводит все данные пользователя в консоль
+
         if (user) {
+            // Проверяем URL аватарки
+            console.log("User photo URL:", user.photo_url);  // Выводит URL аватарки
+
+            // Устанавливаем аватарку и имя пользователя
+            const avatarUrl = user.photo_url || 'default-avatar.png';
+            document.getElementById('user-avatar').src = avatarUrl;
             document.getElementById('user-name').innerText = user.first_name + ' ' + (user.last_name || '');
-            document.getElementById('user-avatar').src = user.photo_url || 'default-avatar.png';
+        } else {
+            console.log("User data is not available.");
         }
     </script>
 </body>
